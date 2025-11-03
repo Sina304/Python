@@ -1,8 +1,8 @@
-class TrieNode:
+class TrieNode:                 #jest to klasa drzewa a obiekty tego drzewa to litery
     def __init__(self):
         self.children = {}      #dzieci czyli kolejne litery
         self.failure = None     #wskaźnik na skrót
-        self.output = []        #lista słów ???
+        self.output = []        #czyli tutaj wpisujemy jakie slowa sie na tej literze koncza
         self.is_end = False     #czy to jest koniec slowa
 
 class AhoCorasick:              #Główna klasa
@@ -21,25 +21,26 @@ class AhoCorasick:              #Główna klasa
             node = node.children[char]
         
         node.is_end = True                  #ostatnia litera to koniec słowa
-        node.output.append(pattern)         #no i dodajemy słowo
+        node.output.append(pattern)         #no i tutaj dopisujemy do tej litery ze na niej konczy sie to slowo
     
     def build_failure_links(self):
         from collections import deque
         queue = deque()                 #Kolejka typu FIFO
         
-        for child in self.root.children.values():
-            child.failure = self.root
-            queue.append(child)
+        for child in self.root.children.values():   #czyli bierzemy wszystkie dzieci korzenia 
+            child.failure = self.root               #kazdy failure dziecka to korzen
+            queue.append(child)                     #no i dodajemy do kolejki
+            #czyli tutaj dodajemy kazda unikalna pierwsza litere patternow
         
         while queue:
-            #Wyciąga do current_node pierwszy item i wrzuca na koniec kolejki jego dzieci
+            #Wyciąga do current_node pierwszy item 
             current_node = queue.popleft()  
-            
+            #i wrzuca na koniec kolejki jego dzieci
             for char, child_node in current_node.children.items():
                 queue.append(child_node)
-                failure_node = current_node.failure
+                failure_node = current_node.failure #???
                 
-                while failure_node is not None and char not in failure_node.children:
+                while failure_node is not None and char not in failure_node.children: 
                     failure_node = failure_node.failure
                 
                 if failure_node is None:
@@ -88,7 +89,7 @@ print("3. Budujemy skróty między słowami")
 ac.build_failure_links()
 
 # 4. Szukamy w tekście
-print("4. Szukamy w tekście: 'ushers'")
+print("4. Szukamy w tekście:")
 text = "ów stado krów"
 results = ac.search(text)
 
@@ -96,6 +97,5 @@ results = ac.search(text)
 print("5. WYNIKI:")
 for word, positions in results.items():
     for pos in positions:
-        found = text[pos:pos+len(word)]
-        print(f"   Znaleziono '{word}' na pozycji {pos}: '{found}'")
+        print(f"   Znaleziono '{word}' na pozycji {pos}")
 
