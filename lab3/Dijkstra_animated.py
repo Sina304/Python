@@ -33,7 +33,7 @@ def dijkstra(graph, start):
 
     return distances, previous
 
-def get_path(previous, start, target):
+def get_path(previous, target):
     path = []
     current = target
     while current is not None:
@@ -44,7 +44,7 @@ def get_path(previous, start, target):
 
 # --- Uruchomienie Dijkstry ---
 distances, previous = dijkstra(graph, 'A')
-path = get_path(previous, 'A', 'F')
+path = get_path(previous, 'F')
 print("Najkrótsze odległości:", distances)
 print("Najkrótsza trasa z A do F:", path)
 

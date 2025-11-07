@@ -30,11 +30,11 @@ def dijkstra(graph, start):
             if new_distance < distances[neighbor]:          #i bedzie to mniejsze niz nieskonczonosc dla B
                 distances[neighbor] = new_distance          #wiec nowym dystansem dla B bedzie to 4
                 previous[neighbor] = current_node           #no i z racji ze bedziemy analizowac nastepne to dodajemy ze przed B byl wlasnie A
-                heapq.heappush(pq, (new_distance, neighbor))#no i pushujemy do kolejki priorytetowej dystans do B i sam B
+                heapq.heappush(pq, (new_distance, neighbor))#no i pushujemy do kolejki priorytetowej o nazwie pq dystans do B i sam B
 
     return distances, previous
 
-def get_path(previous, start, target):
+def get_path(previous, target):
     path = []
     current = target
     
@@ -49,4 +49,4 @@ def get_path(previous, start, target):
 
 distances, previous = dijkstra(graph, 'A')
 print(distances)
-print(get_path(previous, 'A', 'D'))
+print(get_path(previous, 'D'))
