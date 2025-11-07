@@ -71,29 +71,22 @@ class AhoCorasick:              #Główna klasa
         
         return result
 
-# PRZYKŁAD UŻYCIA - krok po kroku
-print("=== PRZYKŁAD ===")
-
 # 1. Tworzymy wyszukiwarkę
-print("1. Tworzymy wyszukiwarkę Aho-Corasick")
 ac = AhoCorasick()
 
 # 2. Dodajemy słowa do wyszukania
-print("2. Dodajemy słowa:")
 words = ["ów"]
 for word in words:
     ac.add_pattern(word)
 
-# 3. Budujemy skróty
-print("3. Budujemy skróty między słowami")
+# 3. Budujemy failure linksy
 ac.build_failure_links()
 
 # 4. Szukamy w tekście
-print("4. Szukamy w tekście:")
 text = "ów stado krów"
 results = ac.search(text)
 
-# 5. Pokazujemy wyniki
+
 print("5. WYNIKI:")
 for word, positions in results.items():
     for pos in positions:
